@@ -2,15 +2,22 @@ import { ethers } from 'ethers';
 import sdk from './1-initialize-sdk.js';
 import { readFileSync } from 'fs';
 
-const app = sdk.getAppModule('INSERT_YOUR_APP_ADDRESS_HERE');
+// current ERC-1155 deploy:
+// 0x160A1F9488d3eB7f14aC9db50D3d3A8019f8B2cC
+// https://rinkeby.etherscan.io/address/0x160A1F9488d3eB7f14aC9db50D3d3A8019f8B2cC
+
+// img on ipfs: 
+// ipfs://bafkreicia5jhfdo5b32rnxcxqfq7y4hsph3pffhc27hve27ktjgk3h642q
+
+const app = sdk.getAppModule('0x9aE068F54917DBE7d9396b87B2B683B52BDB5f27');
 
 (async () => {
 	try {
 		const bundleDropModule = await app.deployBundleDropModule({
 			// The collection's name, ex. CryptoPunks
-			name: '[DAO Name] Membership',
+			name: 'Master & Commander DAO Membership',
 			// A description for the collection.
-			description: 'An example description for the DAO',
+			description: 'One token represents membership to Master & Commander DAO!',
 			// The image for the collection that will show up on OpenSea.
 			image: readFileSync('scripts/assets/nft-img.png'),
 			// We need to pass in the address of the person who will be receiving the proceeds from sales of nfts in the module.

@@ -18,12 +18,10 @@ if (!process.env.WALLET_ADDRESS || process.env.WALLET_ADDRESS == '') {
 	console.log('🛑 Wallet Address not found.');
 }
 
-const sdk = new ThirdwebSDK(
-	new ethers.Wallet(
-		process.env.PRIVATE_KEY,
-		ethers.getDefaultProvider(process.env.NODE_URL)
-	)
-);
+// instantiate thirdweb SDK with private key & ethers provider
+const provider = new ethers.providers.JsonRpcProvider(process.env.NODE_URL);
+const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+const sdk = new ThirdwebSDK(wallet);
 
 (async () => {
 	try {
