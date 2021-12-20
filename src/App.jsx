@@ -2,14 +2,15 @@ import { useEffect, useMemo, useState } from 'react';
 import { useWeb3 } from '@3rdweb/hooks';
 import { ThirdwebSDK } from '@3rdweb/sdk';
 
-
-// Rinkeby contract
+// NFT contract
 // https://rinkeby.etherscan.io/address/0x160a1f9488d3eb7f14ac9db50d3d3a8019f8b2cc
+
+// Token address
+// https://rinkeby.etherscan.io/address/0xE322441D1219f540bfa5c898A7396C7C132AC4EE
 
 // Membership NFT on OS
 // https://testnets.opensea.io/collection/master-commander-dao-membership
 // https://testnets.opensea.io/assets/0x160A1F9488d3eB7f14aC9db50D3d3A8019f8B2cC/0
-
 
 const sdk = new ThirdwebSDK('rinkeby');
 const bundleDropModule = sdk.getBundleDropModule(
