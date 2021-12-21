@@ -46,6 +46,23 @@ const App = () => {
 		return str.substring(0, 6) + '...' + str.substring(str.length - 4);
 	};
 
+	const mintNft = () => {
+		setIsClaiming(true);
+		bundleDropModule
+			.claim('0', 1)
+			.catch(err => {
+				console.error('failed to claim', err);
+				setIsClaiming(false);
+			})
+			.finally(() => {
+				setIsClaiming(false);
+				setHasClaimedNFT(true);
+				console.log(
+					`🌊 Successfully Minted! Check it out on OpenSea: https://testnets.opensea.io/assets/${bundleDropModule.address}/0`
+				);
+			});
+	};
+
 	// Retreive all our existing proposals from the contract.
 	useEffect(() => {
 		if (!hasClaimedNFT) {
@@ -169,28 +186,23 @@ const App = () => {
 			});
 	}, [address]);
 
-	const mintNft = () => {
-		setIsClaiming(true);
-		bundleDropModule
-			.claim('0', 1)
-			.catch(err => {
-				console.error('failed to claim', err);
-				setIsClaiming(false);
-			})
-			.finally(() => {
-				setIsClaiming(false);
-				setHasClaimedNFT(true);
-				console.log(
-					`🌊 Successfully Minted! Check it out on OpenSea: https://testnets.opensea.io/assets/${bundleDropModule.address}/0`
-				);
-			});
-	};
+	if (error && error.name === 'UnsupportedChainIdError') {
+		return (
+			<div className='unsupported-network'>
+				<h2>Please connect to Rinkeby</h2>
+				<p>
+					This dapp only works on the Rinkeby network, please switch networks in
+					your connected wallet.
+				</p>
+			</div>
+		);
+	}
 
 	// User's wallet not connected, render prompt
 	if (!address) {
 		return (
 			<div className='landing'>
-				<h1>Welcome to Master &amp; Commander DAO</h1>
+				<h1>⛵ Welcome to Master &amp; Commander DAO ⛵</h1>
 				<button onClick={() => connectWallet('injected')} className='btn-hero'>
 					Connect your wallet, landlubber!
 				</button>
@@ -202,8 +214,8 @@ const App = () => {
 	if (hasClaimedNFT) {
 		return (
 			<div className='member-page'>
-				<h1>Master &amp; Commander DAO</h1>
-				<p>Congratulations on being a member</p>
+				<h1>Master &amp; Commander DAO </h1>
+				<p>⛵ Congratulations on being a member! ⛵</p>
 				<div>
 					<div>
 						<h2>Member List</h2>
